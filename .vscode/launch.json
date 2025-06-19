@@ -31,6 +31,87 @@
                 "OTEL_AWS_APPLICATION_SIGNALS_ENABLED": "true",
                 "OTEL_AWS_APPLICATION_SIGNALS_EXPORTER_ENDPOINT": "http://localhost:4316/v1/metrics",
             },
-        }
+        },
+        {
+            //  path to interpecter:
+            //  ./.tox/py312-test-instrumentation-botocore-0/bin/python3
+            "name": "UT: botocore",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "pytest",
+            "args": [
+                "${workspaceFolder}/instrumentation/opentelemetry-instrumentation-botocore/tests/test_botocore_lambda.py", // adjust path
+                "-vv"
+            ],
+            "justMyCode": false
+        },
+        {
+            "name": "zADOT",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/.venv/bin/opentelemetry-instrument",
+            "cwd": "${workspaceFolder}/zADOT",
+            "args": [
+                "${workspaceFolder}/.venv/bin/python",
+                "${workspaceFolder}/zADOT/adot-test.py"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "OTEL_EXPERIMENTAL_RESOURCE_DETECTORS": "host,os,process",
+                "OTEL_METRICS_EXPORTER": "none",
+                "OTEL_LOGS_EXPORTER": "none",
+                "OTEL_AWS_APPLICATION_SIGNALS_ENABLED": "true",
+                "OTEL_PYTHON_DISTRO": "aws_distro",
+                "OTEL_PYTHON_CONFIGURATOR": "aws_configurator",
+                "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
+                "OTEL_TRACES_SAMPLER": "xray",
+                "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://127.0.0.1:2000",
+                "OTEL_AWS_APPLICATION_SIGNALS_EXPORTER_ENDPOINT": "http://127.0.0.1:4316/v1/metrics",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://127.0.0.1:4318/v1/traces",
+                "OTEL_RESOURCE_ATTRIBUTES": "service.name=ADOT-Python-zADOT"
+            }
+        },
+        {
+            "name": "zADOT with hooks",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/zADOT/main.py",
+            "cwd": "${workspaceFolder}/zADOT",
+            "python": "${workspaceFolder}/.venv/bin/python",
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "OTEL_EXPERIMENTAL_RESOURCE_DETECTORS": "host,os,process",
+                "OTEL_METRICS_EXPORTER": "none",
+                "OTEL_LOGS_EXPORTER": "none",
+                "OTEL_AWS_APPLICATION_SIGNALS_ENABLED": "true",
+                "OTEL_PYTHON_DISTRO": "aws_distro",
+                "OTEL_PYTHON_CONFIGURATOR": "aws_configurator",
+                "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
+                "OTEL_TRACES_SAMPLER": "xray",
+                "OTEL_TRACES_SAMPLER_ARG": "endpoint=http://127.0.0.1:2000",
+                "OTEL_AWS_APPLICATION_SIGNALS_EXPORTER_ENDPOINT": "http://127.0.0.1:4316/v1/metrics",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://127.0.0.1:4318/v1/traces",
+                "OTEL_RESOURCE_ATTRIBUTES": "service.name=ADOT-Python-zADOT-Hook"
+            }
+        },
+        {
+            "name": "Dbg opentelemetry-bootstrap -a install",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/.venv/bin/opentelemetry-bootstrap",
+            "args": [
+                "-a",
+                "install"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "OTEL_SERVICE_NAME": "Mcp-Client-PyLaunchJson",
+                "OTEL_TRACES_EXPORTER": "otlp",
+                "OTEL_EXPORTER_OTLP_TRACES_ENDPOINT": "http://xyz-jaeger-100:4317/v1/traces",
+            }
+        },
     ]
 }
