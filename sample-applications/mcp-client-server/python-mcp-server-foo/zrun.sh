@@ -18,5 +18,5 @@ OTEL_TRACES_SAMPLER_ARG="endpoint=http://localhost:2000" \
 OTEL_AWS_APPLICATION_SIGNALS_EXPORTER_ENDPOINT=http://localhost:4316/v1/metrics \
 # OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://localhost:4316/v1/traces \
 OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://xyz-jaeger-100:4317/v1/traces \
-OTEL_RESOURCE_ATTRIBUTES="service.name=mcp-server-foo-zrun33" \
+OTEL_RESOURCE_ATTRIBUTES="service.name=mcp-server-foo-zrun" \
 opentelemetry-instrument python ./mcp_simple_tool/server.py
