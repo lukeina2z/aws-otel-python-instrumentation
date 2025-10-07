@@ -8,7 +8,7 @@ server_params = StdioServerParameters(
     env={
         # "MCP_LOG_LEVEL": "DEBUG",
         "DEBUGPY_WAIT_FOR_CLIENT": "0",
-        "OTEL_SERVICE_NAME": "mcp-server-foo-LaunchedByClient-CLI",
+        "OTEL_SERVICE_NAME": "MCP-Server-FOO",
         "OTEL_LOG_LEVEL": "debug",
         "OTEL_METRICS_EXPORTER": "none",
         "OTEL_LOGS_EXPORTER": "none",
@@ -78,6 +78,11 @@ async def run():
             # Call pingweb tool
             print("CALL PINGWEB TOOL")
             result = await session.call_tool("pingweb", arguments={"url": "http://www.aws.com"})
+            print(result.content)
+
+            # Call callawssdk tool
+            print("CALL CALLAWSSDK TOOL")
+            result = await session.call_tool("callawssdk")
             print(result.content)
 
             # Call a tool
