@@ -8,7 +8,7 @@ server_params = StdioServerParameters(
     env={
         # "MCP_LOG_LEVEL": "DEBUG",
         "DEBUGPY_WAIT_FOR_CLIENT": "0",
-        "OTEL_SERVICE_NAME": "mcp-server-foo-LaunchByClient-CLI",
+        "OTEL_SERVICE_NAME": "mcp-server-foo-LaunchedByClient-CLI",
         "OTEL_LOG_LEVEL": "debug",
         "OTEL_METRICS_EXPORTER": "none",
         "OTEL_LOGS_EXPORTER": "none",
