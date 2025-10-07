@@ -11,12 +11,12 @@ if os.getenv("DEBUGPY_WAIT_FOR_CLIENT") == "1":
 print("Start running MCP Server Foo...!")
 
 try:
-    from mcp_simple_tool.oteltest import otel_test_call
+    from mcp_simple_tool.oteltest import otel_test_call, call_aws_sdk, call_http
 except ImportError:
-    from oteltest import otel_test_call
+    from oteltest import otel_test_call, call_aws_sdk, call_http
 
 print("Test ADOT auto instrumenation...!")
-otel_test_call(3)
+# otel_test_call(3)
 print("Completed testing ADOT auto instrumenation...!")
 
 # import requests
@@ -44,15 +44,14 @@ def subtract(a: int, b: int) -> int:
     return a - b
 
 @mcp.tool()
+def callawssdk() -> str:
+    """Call AWS SDK"""
+    return call_aws_sdk()
+
+@mcp.tool()
 def pingweb(url: str) -> str:
     """Ping a web URL and return status"""
-    import requests
-    try:
-        response = requests.get(url, timeout=5)
-        return f"Status: {response.status_code}, Response time: {response.elapsed.total_seconds():.2f}s"
-    except Exception as e:
-        return f"!!! Error: {str(e)}"
-
+    return call_http()
 
 # Add a dynamic greeting resource
 @mcp.resource("greeting://{name}")

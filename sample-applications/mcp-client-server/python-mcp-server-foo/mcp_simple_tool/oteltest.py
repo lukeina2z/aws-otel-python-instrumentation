@@ -17,20 +17,15 @@ import boto3
 s3 = boto3.resource("s3")
 
 def call_aws_sdk():
-    for bucket in s3.buckets.all():
-        if (bucket is None):
-            print(bucket.name)
+    bucket_names = [bucket.name for bucket in s3.buckets.all()]
+    return ",".join(bucket_names)
 
-def call_http():
+def call_http() -> str:
     try:
-        requested = requests.get("http://www.aws.com", timeout=120)
-        assert requested.status_code == 200
-    except requests.exceptions.HTTPError as http_err:
-            print(f"HTTP error occurred: {http_err}")
-    except requests.exceptions.Timeout as timeout_err:
-            print(f"Timeout error occurred: {timeout_err}")
-    except requests.exceptions.RequestException as req_err:
-            print(f"Request error occurred: {req_err}")
+        response = requests.get("http://www.aws.com", timeout=120)
+        return f"HTTP status code: {response.status_code}"
+    except Exception as e:
+        return f"Error: {str(e)}"
 
 
 def otel_test_call(count):
