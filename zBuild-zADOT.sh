@@ -32,7 +32,7 @@ tox -e 3.13-test-aws-opentelemetry-distro
 
 # Install distro
 pushd dist
-pip install --force-reinstall aws_opentelemetry_distro-0.14.0.dev0-py3-none-any.whl
+pip install --force-reinstall aws_opentelemetry_distro-0.13.0.dev0-py3-none-any.whl
 popd
 
 
